@@ -15,10 +15,14 @@ server.get("/api/results/:searchTerm", (req, res) => {
     body
   ) {
     if (!error && response.statusCode == 200) {
-      const regex = /デジタル大辞泉<\/a>[^!]*/;
+      // const regex = /デジタル大辞泉<\/a>[^!]*/;
       // const regex = /デジタル大辞泉<\/a>[^!]*![^!]*/im;
       // const regex = /デジタル大辞泉<\/a><span>の解説[^!]+/gimu;
       // const regex = /デジタル大辞泉<\/a>[^!]+<![^!]+<!-- \/\.source -->/gi;
+
+      // this one is to allow the html string to convert directly
+      const regex = /<h2>[^!]*デジタル大辞泉<\/a>[^!]*<\/div>/;
+
       const match = body.match(regex);
       res.status(200).send(match);
       // res.status(response.statusCode).send(body);
