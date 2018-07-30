@@ -1,0 +1,26 @@
+{
+  "name": "digital-daijisen-viewer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nickbrenn/Digital-Daijisen-Viewer"
+  },
+  "author": "Nicholas Brennan",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/nickbrenn/Digital-Daijisen-Viewer/issues"
+  },
+  "homepage": "https://github.com/nickbrenn/Digital-Daijisen-Viewer",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
+    "create-react-app": "^1.5.2",
+    "express": "^4.16.2",
+    "request": "^2.87.0"
+  }
+}
