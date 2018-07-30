@@ -15,7 +15,12 @@ server.get("/api/results/:searchTerm", (req, res) => {
     body
   ) {
     if (!error && response.statusCode == 200) {
-      res.status(200).send(body);
+      const regex = /デジタル大辞泉<\/a>[^!]*/;
+      // const regex = /デジタル大辞泉<\/a>[^!]*![^!]*/im;
+      // const regex = /デジタル大辞泉<\/a><span>の解説[^!]+/gimu;
+      // const regex = /デジタル大辞泉<\/a>[^!]+<![^!]+<!-- \/\.source -->/gi;
+      const match = body.match(regex);
+      res.status(200).send(match);
       // res.status(response.statusCode).send(body);
       // console.log(body); // Print the web page.
     } else {
