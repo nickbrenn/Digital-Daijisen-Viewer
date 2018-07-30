@@ -1,18 +1,20 @@
 body {
-  /* display: flex;
-  justify-content: center; */
-  margin: 0;
+  margin: 30px 50px;
   padding: 0;
   font-family: sans-serif;
   background-color: #f2f2f2;
 }
 
-/* 
 .app {
 }
 
 .search {
+  display: inline-flex;
+  left: 0;
+  top: 0;
+  width: 100%;
+  justify-content: center;
 }
 
 .result {
-} */
+}

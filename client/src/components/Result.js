@@ -10,7 +10,7 @@ const Result = props => {
     // </div>
 
     // the below way will replicate the entire body of response
-    <div dangerouslySetInnerHTML={{ __html: html }} />
+    <div className="result" dangerouslySetInnerHTML={{ __html: html }} />
   );
 };
 

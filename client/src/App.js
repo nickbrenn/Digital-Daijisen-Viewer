@@ -34,7 +34,7 @@ export default class App extends Component {
 
   render() {
     return (
-      <div>
+      <div className="app">
         <Route
           path="/"
           render={props => {
@@ -43,8 +43,6 @@ export default class App extends Component {
             );
           }}
         />
-        <br />
-        <br />
         <Route
           path={`/results/`}
           render={props => {
