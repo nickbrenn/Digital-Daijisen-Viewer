@@ -21,10 +21,11 @@ server.get("/api/results/:searchTerm", (req, res) => {
       // const regex = /デジタル大辞泉<\/a>[^!]+<![^!]+<!-- \/\.source -->/gi;
 
       // this one is to allow the html string to convert directly
-      const daijisenRegex = /(?<=\<!-- \/\.dictype 辞書ひとつ --\>)([^\r]*?)デジタル大辞泉\<\/a\>([^\r]*?)(?=\<!-- \/\.dictype 辞書ひとつ --\>)/;
-      const daijirinRegex = /(?<=\<!-- \/\.dictype 辞書ひとつ --\>)([^(大辞泉)]*?)大辞林 第三版\<\/a\>([^\r]*?)(?=\<!-- \/\.dictype 辞書ひとつ --\>)/;
+      const daijisenRegex = /デジタル大辞泉<\/a>([^\r]*?)(?=<!-- \/\.dictype 辞書ひとつ -->)/;
+      const daijirinRegex = /大辞林 第三版<\/a>([^\r]*?)(?=<!-- \/\.dictype 辞書ひとつ -->)/;
 
-      const replaceHeaderRegex = /\<article[^!]*\<h2\>[^!]*\<\/h2\>/;
+      const replaceHeaderRegex = /[^!]*<\/h2>/;
+      const replaceSourceRegex = /<p class=\"source\">([^\r]*?)(<!-- \/\.source -->)/;
 
       const daijisenDefinition = body.match(daijisenRegex);
       const daijirinDefinition = body.match(daijirinRegex);
@@ -32,17 +33,21 @@ server.get("/api/results/:searchTerm", (req, res) => {
       let match = "";
 
       if (daijisenDefinition) {
-        match += daijisenDefinition[0].replace(
-          replaceHeaderRegex,
-          "<article id='daijisen' class='definition'><h2>大辞泉</h2>"
-        );
+        match += daijisenDefinition[0]
+          .replace(
+            replaceHeaderRegex,
+            "<article id='daijisen' class='definition'><h2>大辞泉</h2>"
+          )
+          .replace(replaceSourceRegex, "");
       }
 
       if (daijirinDefinition) {
-        match += daijirinDefinition[0].replace(
-          replaceHeaderRegex,
-          "<article id='daijirin' class='definition'><h2>大辞林</h2>"
-        );
+        match += daijirinDefinition[0]
+          .replace(
+            replaceHeaderRegex,
+            "<article id='daijirin' class='definition'><h2>大辞林</h2>"
+          )
+          .replace(replaceSourceRegex, "");
       }
 
       res.status(200).send(match.replace(/\n/g, ""));
