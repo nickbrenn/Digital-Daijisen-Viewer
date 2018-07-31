@@ -14,7 +14,7 @@ export default class Search extends Component {
   };
 
   handleSubmit = () => {
-    this.props.updateSearchInput(this.state.searchInput);
+    this.props.fetchResults(this.state.searchInput);
     this.props.history.push(`/word/${this.state.searchInput}`);
   };
 

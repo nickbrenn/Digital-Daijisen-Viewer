@@ -28,12 +28,12 @@ export default class App extends Component {
     }
   };
 
-  updateSearchInput = input => {
-    this.setState({ searchInput: input, results: "Loading..." });
-    this.fetchResults(input);
-  };
+  // updateSearchInput = input => {
+  //   this.fetchResults(input);
+  // };
 
   fetchResults = searchTerm => {
+    this.setState({ searchInput: searchTerm, results: "Loading..." });
     axios
       .get(`http://localhost:5000/api/results/${searchTerm}`)
       .then(response => {
@@ -51,9 +51,7 @@ export default class App extends Component {
         <Route
           path="/"
           render={props => {
-            return (
-              <Search {...props} updateSearchInput={this.updateSearchInput} />
-            );
+            return <Search {...props} fetchResults={this.fetchResults} />;
           }}
         />
         <Route
