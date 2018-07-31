@@ -15,6 +15,19 @@ export default class App extends Component {
     };
   }
 
+  componentDidMount = () => {
+    const currentUrl = window.location.href;
+    console.log(currentUrl);
+    if (currentUrl.includes("dictionary/")) {
+      window.location.href = "http://localhost:3000/";
+      this.setState({ searchInput: null, results: null });
+    } else if (currentUrl.includes("word/")) {
+      this.fetchResults(
+        currentUrl.replace(/http:\/\/localhost:3000\/[a-z]*\//i, "")
+      );
+    }
+  };
+
   updateSearchInput = input => {
     this.setState({ searchInput: input, results: "Loading..." });
     this.fetchResults(input);
@@ -44,7 +57,14 @@ export default class App extends Component {
           }}
         />
         <Route
-          path={`/results/`}
+          exact
+          path="/"
+          render={() => {
+            return <div className="result">Search something dude</div>;
+          }}
+        />
+        <Route
+          path={`/word/`}
           render={props => {
             return <Result {...props} results={this.state.results} />;
           }}
