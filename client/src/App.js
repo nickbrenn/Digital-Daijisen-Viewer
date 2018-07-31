@@ -10,18 +10,19 @@ export default class App extends Component {
   constructor() {
     super();
     this.state = {
-      searchInput: null,
-      results: null
+      searchInput: "",
+      results: ""
     };
   }
 
   componentDidMount = () => {
     const currentUrl = window.location.href;
-    console.log(currentUrl);
-    if (currentUrl.includes("dictionary/")) {
-      window.location.href = "http://localhost:3000/";
-      this.setState({ searchInput: null, results: null });
-    } else if (currentUrl.includes("word/")) {
+    console.log("Current url is", currentUrl);
+    // if (currentUrl.includes("dictionary/")) {
+    //   window.location.href = "http://localhost:3000/";
+    //   this.setState({ searchInput: "", results: "" });
+    // } else
+    if (currentUrl.includes("word/")) {
       this.fetchResults(
         currentUrl.replace(/http:\/\/localhost:3000\/[a-z]*\//i, "")
       );
@@ -33,16 +34,20 @@ export default class App extends Component {
   // };
 
   fetchResults = searchTerm => {
-    this.setState({ searchInput: searchTerm, results: "Loading..." });
-    axios
-      .get(`http://localhost:5000/api/results/${searchTerm}`)
-      .then(response => {
-        this.setState(() => ({ results: response.data }));
-      })
-      .catch(error => {
-        console.error("Server Error!!!: ", error);
-        this.setState(() => ({ results: "Error" }));
-      });
+    if (!searchTerm) {
+      window.location.href = "http://localhost:3000/";
+    } else {
+      this.setState({ searchInput: searchTerm, results: "Loading..." });
+      axios
+        .get(`http://localhost:5000/api/results/${searchTerm}`)
+        .then(response => {
+          this.setState(() => ({ results: response.data }));
+        })
+        .catch(error => {
+          console.error("Server Error!!!: ", error);
+          this.setState(() => ({ results: "Error" }));
+        });
+    }
   };
 
   render() {
