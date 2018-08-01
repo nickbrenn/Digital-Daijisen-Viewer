@@ -53,7 +53,11 @@ server.get("/api/results/:searchTerm", (req, res) => {
       res.status(200).send(match.replace(/\n/g, ""));
     } else {
       console.log("ERROR");
-      res.send("ERROR");
+      if (response) {
+        res.send("ERROR response status: " + response.statusCode);
+      } else {
+        res.send("ERROR with no response");
+      }
     }
   });
 });

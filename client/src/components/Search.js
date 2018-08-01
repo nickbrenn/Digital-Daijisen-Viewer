@@ -22,6 +22,13 @@ export default class Search extends Component {
     return (
       <div className="search">
         <Input
+          onKeyDown={event => {
+            if (event.key === "Enter") {
+              // event.preventDefault();
+              // event.stopPropagation();
+              this.handleSubmit();
+            }
+          }}
           type="text"
           placeholder="Look up a word"
           onChange={this.handleSearchInput}
