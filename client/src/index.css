@@ -17,4 +17,13 @@ body {
 }
 
 .result {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 0 3%;
+}
+
+.result .definition {
+  width: 100%;
+  padding-top: 3%;
 }
