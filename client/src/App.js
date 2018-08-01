@@ -34,20 +34,22 @@ export default class App extends Component {
   // };
 
   fetchResults = searchTerm => {
-    if (!searchTerm) {
-      window.location.href = "http://localhost:3000/";
-    } else {
-      this.setState({ searchInput: searchTerm, results: "Loading..." });
-      axios
-        .get(`http://localhost:5000/api/results/${searchTerm}`)
-        .then(response => {
-          this.setState(() => ({ results: response.data }));
-        })
-        .catch(error => {
-          console.error("Server Error!!!: ", error);
-          this.setState(() => ({ results: "Error" }));
-        });
-    }
+    // if (!searchTerm) {
+    //   window.location.href = "http://localhost:3000/";
+    // } else {
+    this.setState({ searchInput: searchTerm, results: "Loading..." });
+    axios
+      .get(
+        `https://digital-daijisen-viewer.herokuapp.com/api/results/${searchTerm}`
+      )
+      .then(response => {
+        this.setState(() => ({ results: response.data }));
+      })
+      .catch(error => {
+        console.error("Server Error!!!: ", error);
+        this.setState(() => ({ results: "Error" }));
+      });
+    // }
   };
 
   render() {

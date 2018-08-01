@@ -4,7 +4,9 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
   },
   "repository": {
     "type": "git",

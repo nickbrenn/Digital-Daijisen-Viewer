@@ -4,7 +4,12 @@ const request = require("request");
 
 const server = express();
 
+server.use(express.json());
 server.use(cors({}));
+
+server.get("/", (req, res) => {
+  res.json({ Message: "Hello World" });
+});
 
 server.get("/api/results/:searchTerm", (req, res) => {
   const encodedSearchTerm = encodeURIComponent(req.params.searchTerm);
@@ -77,6 +82,11 @@ server.get("/api/results/:searchTerm", (req, res) => {
   });
 });
 
-server.listen(5000, () => {
-  console.log("Server listening on port 5000");
+const port = process.env.PORT || 3333;
+
+server.listen(port, err => {
+  if (err) console.log(err);
+  else {
+    console.log(`Listening to port ${port}`);
+  }
 });
