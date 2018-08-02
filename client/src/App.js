@@ -23,9 +23,7 @@ export default class App extends Component {
     //   this.setState({ searchInput: "", results: "" });
     // } else
     if (currentUrl.includes("word/")) {
-      this.fetchResults(
-        currentUrl.replace(/http:\/\/localhost:3000\/[a-z]*\//i, "")
-      );
+      this.fetchResults(currentUrl.replace(/https?:\/\/[^\/]*\/[a-z]*\//i, ""));
     }
   };
 
@@ -34,22 +32,28 @@ export default class App extends Component {
   // };
 
   fetchResults = searchTerm => {
-    // if (!searchTerm) {
-    //   window.location.href = "http://localhost:3000/";
-    // } else {
-    this.setState({ searchInput: searchTerm, results: "Loading..." });
-    axios
-      .get(
-        `https://digital-daijisen-viewer.herokuapp.com/api/results/${searchTerm}`
-      )
-      .then(response => {
-        this.setState(() => ({ results: response.data }));
-      })
-      .catch(error => {
-        console.error("Server Error!!!: ", error);
-        this.setState(() => ({ results: "Error" }));
+    if (!searchTerm) {
+      return;
+    } else {
+      this.setState({
+        searchInput: searchTerm,
+        results: "<h3 class='result' style='padding-top: 3%'>Loading...</h3>"
       });
-    // }
+      axios
+        .get(
+          `https://digital-daijisen-viewer.herokuapp.com/api/results/${searchTerm}`
+        )
+        .then(response => {
+          this.setState(() => ({ results: response.data }));
+        })
+        .catch(error => {
+          console.error("Server Error!!!: ", error);
+          this.setState(() => ({
+            results:
+              "<h3 class='result' style='padding-top: 3%'>Error from .catch</h3>"
+          }));
+        });
+    }
   };
 
   render() {
