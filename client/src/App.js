@@ -6,6 +6,9 @@ import axios from "axios";
 import Search from "./components/Search";
 import Result from "./components/Result";
 
+const baseUrl = "https://digital-daijisen-viewer.herokuapp.com";
+const localUrl = "http://localhost:3333";
+
 export default class App extends Component {
   constructor() {
     super();
@@ -41,7 +44,7 @@ export default class App extends Component {
       });
       axios
         .get(
-          `https://digital-daijisen-viewer.herokuapp.com/api/results/${searchTerm}`
+          `${baseUrl}/api/results/${searchTerm}`
         )
         .then(response => {
           this.setState(() => ({ results: response.data }));
