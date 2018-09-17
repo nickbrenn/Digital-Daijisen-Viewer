@@ -74,9 +74,9 @@ server.get("/api/results/:searchTerm", (req, res) => {
     } else {
       console.log("ERROR");
       if (response) {
-        res.send("ERROR response status: " + response.statusCode);
+        res.json({ error: "ERROR response status: " + response.statusCode });
       } else {
-        res.send("ERROR with no response");
+        res.json({ error: "ERROR with no response" });
       }
     }
   });
