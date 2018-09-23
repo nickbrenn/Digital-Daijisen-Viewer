@@ -2,11 +2,8 @@ import React, { Component } from "react";
 import { Input, Button } from "reactstrap";
 
 export default class Search extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      searchInput: ""
-    };
+  state = {
+    searchInput: ""
   }
 
   handleSearchInput = e => {
