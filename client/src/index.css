@@ -9,6 +9,7 @@ body {
 }
 
 .search {
+  margin: 3rem 1rem;
   display: inline-flex;
   left: 0;
   top: 0;

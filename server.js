@@ -72,7 +72,7 @@ server.get("/api/results/:searchTerm", (req, res) => {
 
       res.status(200).send(result.replace(/\n/g, ""));
     } else {
-      console.log("ERROR");
+      console.log("SERVER ERROR!");
       if (response) {
         res.json({ error: "ERROR response status: " + response.statusCode });
       } else {

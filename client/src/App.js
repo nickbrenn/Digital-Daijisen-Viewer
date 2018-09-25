@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Route } from "react-router-dom";
-// import { Container, Row, Col } from "reactstrap";
+import { Container, Row, Col } from "reactstrap";
 import axios from "axios";
 
 import Search from "./components/Search";
@@ -104,27 +104,35 @@ export default class App extends Component {
 
   render() {
     return (
-      <div className="app">
-        <Route
-          path="/"
-          render={props => {
-            return <Search {...props} fetchResults={this.fetchResults} />;
-          }}
-        />
-        <Route
-          exact
-          path="/"
-          render={() => {
-            return <div className="result">Search something dude</div>;
-          }}
-        />
-        <Route
-          path={`/word/`}
-          render={props => {
-            return <Result {...props} results={this.state.results} />;
-          }}
-        />
-      </div>
+      <Container className="app">
+        <Row>
+          <Col>
+            <Route
+              path="/"
+              render={props => {
+                return <Search {...props} fetchResults={this.fetchResults} />;
+              }}
+            />
+            <Route
+              exact
+              path="/"
+              render={() => {
+                return <div className="result">Search something dude</div>;
+              }}
+            />
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <Route
+              path={`/word/`}
+              render={props => {
+                return <Result {...props} results={this.state.results} />;
+              }}
+            />
+          </Col>
+        </Row>
+      </Container>
     );
   }
 }
