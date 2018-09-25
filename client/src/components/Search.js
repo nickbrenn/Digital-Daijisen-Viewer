@@ -23,6 +23,7 @@ export default class Search extends Component {
             if (event.key === "Enter") {
               event.preventDefault();
               event.stopPropagation();
+              event.target.blur();
               this.handleSubmit();
             }
           }}
