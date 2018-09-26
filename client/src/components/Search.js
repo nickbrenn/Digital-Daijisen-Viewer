@@ -21,8 +21,6 @@ export default class Search extends Component {
         <Input
           onKeyDown={event => {
             if (event.key === "Enter") {
-              event.preventDefault();
-              event.stopPropagation();
               event.target.blur();
               this.handleSubmit();
             }
