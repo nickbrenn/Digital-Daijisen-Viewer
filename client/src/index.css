@@ -9,7 +9,7 @@ body {
 }
 
 .search {
-  margin: 3rem 1rem;
+  margin: 1rem 1rem 0 1rem;
   display: inline-flex;
   left: 0;
   top: 0;
@@ -21,10 +21,10 @@ body {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  padding: 0 3%;
+  padding: 0 1rem;
 }
 
 .result .definition {
   width: 100%;
-  padding-top: 3%;
+  padding-top: 1rem;
 }
