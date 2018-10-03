@@ -4,7 +4,7 @@ import { Input, Button } from "reactstrap";
 export default class Search extends Component {
   state = {
     searchInput: ""
-  }
+  };
 
   handleSearchInput = e => {
     this.setState({ searchInput: e.target.value });
@@ -31,7 +31,9 @@ export default class Search extends Component {
           value={this.state.searchInput}
         />
         <Button
-          onClick={() => {
+          color="primary"
+          onClick={event => {
+            event.target.blur();
             this.handleSubmit();
           }}
         >

@@ -9,7 +9,7 @@ body {
 }
 
 .search {
-  margin: 2rem 1rem 0 1rem;
+  padding: 2rem 1rem 0;
   display: inline-flex;
   left: 0;
   top: 0;
@@ -27,4 +27,21 @@ body {
 .result .definition {
   width: 100%;
   padding-bottom: 1rem;
+}
+
+.search button.btn {
+  background-color: orange;
+  border-color: orange;
+  border-radius: unset;
+}
+
+button.btn:hover,
+button.btn:active,
+button.btn:focus {
+  background-color: darkorange !important;
+  border-color: darkorange !important;
+}
+
+input.form-control {
+  border-radius: unset;
 }
