@@ -14,17 +14,12 @@ export default class App extends Component {
     super();
     this.state = {
       searchInput: "",
-      results: "<h3>Search something dude...</h3>"
+      results: "<h3>Look up a Japanese word using the searchbar.</h3>"
     };
   }
 
   componentDidMount = () => {
     const currentUrl = window.location.href;
-    console.log("Current url is", currentUrl);
-    // if (currentUrl.includes("dictionary/")) {
-    //   window.location.href = "http://localhost:3000/";
-    //   this.setState({ searchInput: "", results: "" });
-    // } else
     if (currentUrl.includes("word/")) {
       this.fetchResults(currentUrl.replace(/https?:\/\/[^\/]*\/[a-z]*\//i, ""));
     } else {
@@ -34,10 +29,6 @@ export default class App extends Component {
       });
     }
   };
-
-  // updateSearchInput = input => {
-  //   this.fetchResults(input);
-  // };
 
   fetchResults = (searchTerm, alreadyResent) => {
     if (!searchTerm) {
@@ -51,7 +42,6 @@ export default class App extends Component {
         .get(`${baseUrl}/api/results/${searchTerm}`)
         .then(response => {
           if (response.data.error && alreadyResent !== true) {
-            console.log("There's an error");
             const okuriganaRemoved = this.removeOkurigana(searchTerm);
             if (okuriganaRemoved !== null) {
               window.location.href = okuriganaRemoved;
@@ -60,6 +50,7 @@ export default class App extends Component {
               this.setState({ results: response.data.error });
             }
           } else if (response.data.error) {
+            console.log("response.data.error exists!");
             this.setState({ results: response.data.error });
           } else {
             this.setState(() => ({ results: response.data }));
