@@ -40,8 +40,15 @@ body {
 .search button.btn:focus {
   background-color: darkorange !important;
   border-color: darkorange !important;
+  box-shadow: unset !important;
+  -webkit-box-shadow: unset !important;
 }
 
 .search input.form-control {
   border-radius: unset;
+}
+
+.search input.form-control:focus {
+  box-shadow: unset;
+  -webkit-box-shadow: unset;
 }
