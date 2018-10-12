@@ -4,16 +4,19 @@ import { Container, Row, Col } from "reactstrap";
 import axios from "axios";
 
 import Search from "./components/Search";
+import BatchSearch from "./components/BatchSearch";
 import Result from "./components/Result";
 
-const baseUrl = "https://digital-daijisen-viewer.herokuapp.com";
+const herokuUrl = "https://digital-daijisen-viewer.herokuapp.com";
 const localUrl = "http://localhost:3333";
+const baseUrl = herokuUrl;
 
 export default class App extends Component {
   constructor() {
     super();
     this.state = {
       searchInput: "",
+      batchSearch: false,
       results: "<h3>Look up a Japanese word using the searchbar.</h3>"
     };
   }
@@ -65,6 +68,40 @@ export default class App extends Component {
     }
   };
 
+  toggleBatchSearch = () => {
+    const current = this.state.batchSearch;
+    this.setState({ batchSearch: !current });
+  };
+
+  fetchBatchResults = searchTerms => {
+    console.log("INPUT", searchTerms.split(/\n/));
+    searchTerms = searchTerms.split(/\n/);
+    const results = [];
+    const promises = [];
+    for (let i = 0; i < searchTerms.length; i++) {
+      const promise = axios
+        .get(`${baseUrl}/api/results/${searchTerms[i]}`)
+        .then(response => {
+          if (response.data.error) {
+            console.log("response.data.error exists!");
+            results.push("Error");
+          } else {
+            results.push(response.data);
+          }
+        })
+        .catch(error => {
+          console.error("Server Error!!!: ", error);
+          results.push("Error from .catch");
+        });
+      promises.push(promise);
+    }
+
+    Promise.all(promises).then(() => {
+      console.log("RESULTS", results);
+      this.setState({ results: results.join("") });
+    });
+  };
+
   whatCharType = char => {
     const hiraganaRange = /[\u3040-\u309f]/;
     const katakanaRange = /[\u30a0-\u30ff]/;
@@ -99,29 +136,68 @@ export default class App extends Component {
   };
 
   render() {
-    return (
-      <Container className="app">
-        <Row>
-          <Col>
-            <Route
-              path="/"
-              render={props => {
-                return <Search {...props} fetchResults={this.fetchResults} />;
-              }}
-            />
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <Route
-              path="/"
-              render={props => {
-                return <Result {...props} results={this.state.results} />;
-              }}
-            />
-          </Col>
-        </Row>
-      </Container>
-    );
+    if (this.state.batchSearch !== true) {
+      return (
+        <Container className="app">
+          <Row>
+            <Col>
+              <Route
+                path="/"
+                render={props => {
+                  return (
+                    <Search
+                      {...props}
+                      fetchResults={this.fetchResults}
+                      toggleBatchSearch={this.toggleBatchSearch}
+                    />
+                  );
+                }}
+              />
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <Route
+                path="/"
+                render={props => {
+                  return <Result {...props} results={this.state.results} />;
+                }}
+              />
+            </Col>
+          </Row>
+        </Container>
+      );
+    } else {
+      return (
+        <Container className="app">
+          <Row>
+            <Col>
+              <Route
+                path="/"
+                render={props => {
+                  return (
+                    <BatchSearch
+                      {...props}
+                      fetchBatchResults={this.fetchBatchResults}
+                      toggleBatchSearch={this.toggleBatchSearch}
+                    />
+                  );
+                }}
+              />
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <Route
+                path="/"
+                render={props => {
+                  return <Result {...props} results={this.state.results} />;
+                }}
+              />
+            </Col>
+          </Row>
+        </Container>
+      );
+    }
   }
 }

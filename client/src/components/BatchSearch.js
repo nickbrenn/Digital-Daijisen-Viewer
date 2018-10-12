@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Input, Button } from "reactstrap";
 
-export default class Search extends Component {
+export default class BatchSearch extends Component {
   state = {
     searchInput: ""
   };
@@ -11,22 +11,17 @@ export default class Search extends Component {
   };
 
   handleSubmit = () => {
-    this.props.fetchResults(this.state.searchInput);
-    this.props.history.push(`/word/${this.state.searchInput}`);
+    this.props.fetchBatchResults(this.state.searchInput);
+    // this.props.fetchResults(this.state.searchInput);
+    // this.props.history.push(`/word/${this.state.searchInput}`);
   };
 
   render() {
     return (
       <div className="search">
         <Input
-          onKeyDown={event => {
-            if (event.key === "Enter") {
-              event.target.blur();
-              this.handleSubmit();
-            }
-          }}
-          type="text"
-          placeholder="Look up a word"
+          type="textarea"
+          placeholder="Input a list of words with one word per line and click the search button"
           onChange={this.handleSearchInput}
           value={this.state.searchInput}
         />
@@ -46,7 +41,7 @@ export default class Search extends Component {
             this.props.toggleBatchSearch();
           }}
         >
-          Batch Search
+          Search by word
         </Button>
       </div>
     );
