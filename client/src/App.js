@@ -15,7 +15,6 @@ export default class App extends Component {
   constructor() {
     super();
     this.state = {
-      searchInput: "",
       batchSearch: false,
       results: "<h3>Look up a Japanese word using the searchbar.</h3>"
     };
@@ -38,7 +37,6 @@ export default class App extends Component {
       return;
     } else {
       this.setState({
-        searchInput: searchTerm,
         results: "<h3>Loading...</h3>"
       });
       axios
