@@ -9,7 +9,7 @@ import Result from "./components/Result";
 
 const herokuUrl = "https://digital-daijisen-viewer.herokuapp.com";
 const localUrl = "http://localhost:3333";
-const baseUrl = localUrl;
+const baseUrl = herokuUrl;
 
 export default class App extends Component {
   constructor() {

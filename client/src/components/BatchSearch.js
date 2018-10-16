@@ -36,6 +36,7 @@ export default class BatchSearch extends Component {
         </Button>
         <Button
           color="primary"
+          className="secondary-btn"
           onClick={event => {
             event.target.blur();
             this.props.toggleBatchSearch();

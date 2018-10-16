@@ -44,6 +44,21 @@ body {
   -webkit-box-shadow: unset !important;
 }
 
+.search button.btn.secondary-btn {
+  background-color: lightseagreen;
+  border-color: lightseagreen;
+  border-radius: unset;
+}
+
+.search button.btn.secondary-btn:hover,
+.search button.btn.secondary-btn:active,
+.search button.btn.secondary-btn:focus {
+  background-color: darkcyan !important;
+  border-color: darkcyan !important;
+  box-shadow: unset !important;
+  -webkit-box-shadow: unset !important;
+}
+
 .search input.form-control {
   border-radius: unset;
 }
