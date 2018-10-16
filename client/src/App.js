@@ -15,14 +15,18 @@ export default class App extends Component {
   constructor() {
     super();
     this.state = {
-      batchSearch: false,
+      batchSearch: window.location.href.includes("batch") ? true : false,
       results: "<h3>Look up a Japanese word using the searchbar.</h3>"
     };
   }
 
   componentDidMount = () => {
     const currentUrl = window.location.href;
-    if (currentUrl.includes("word/")) {
+    if (currentUrl.includes("batchwords/")) {
+      let searchTerms = currentUrl.replace(/https?:\/\/[^\/]*\/[a-z]*\//i, "");
+      console.log(searchTerms, "URL");
+      this.fetchBatchResults(searchTerms, /\?/);
+    } else if (currentUrl.includes("word/")) {
       this.fetchResults(currentUrl.replace(/https?:\/\/[^\/]*\/[a-z]*\//i, ""));
     } else {
       const link = currentUrl + "word/辞書";
@@ -71,9 +75,10 @@ export default class App extends Component {
     this.setState({ batchSearch: !current });
   };
 
-  fetchBatchResults = searchTerms => {
-    console.log("INPUT", searchTerms.split(/\n/));
-    searchTerms = searchTerms.split(/\n/);
+  fetchBatchResults = (searchTerms, delimiter) => {
+    if (delimiter) {
+      searchTerms = searchTerms.split(delimiter);
+    } else searchTerms = searchTerms.split(/\n/);
     const results = [];
     const promises = [];
     for (let i = 0; i < searchTerms.length; i++) {

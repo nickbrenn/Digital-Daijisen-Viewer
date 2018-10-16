@@ -12,6 +12,8 @@ export default class BatchSearch extends Component {
 
   handleSubmit = () => {
     this.props.fetchBatchResults(this.state.searchInput);
+    const searchTerms = this.state.searchInput.split(/\n/).join("?");
+    this.props.history.push(`/batchwords/${searchTerms}`);
   };
 
   render() {
