@@ -9,7 +9,7 @@ import Result from "./components/Result";
 
 const herokuUrl = "https://digital-daijisen-viewer.herokuapp.com";
 const localUrl = "http://localhost:3333";
-const baseUrl = herokuUrl;
+const baseUrl = localUrl;
 
 export default class App extends Component {
   constructor() {
@@ -96,7 +96,9 @@ export default class App extends Component {
 
     Promise.all(promises).then(() => {
       console.log("RESULTS", results);
-      this.setState({ results: results.join("") });
+      this.setState({
+        results: "<div class='batch-results'>" + results.join("") + "</div>"
+      });
     });
   };
 

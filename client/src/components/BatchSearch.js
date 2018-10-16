@@ -12,8 +12,6 @@ export default class BatchSearch extends Component {
 
   handleSubmit = () => {
     this.props.fetchBatchResults(this.state.searchInput);
-    // this.props.fetchResults(this.state.searchInput);
-    // this.props.history.push(`/word/${this.state.searchInput}`);
   };
 
   render() {

@@ -52,3 +52,7 @@ body {
   box-shadow: unset;
   -webkit-box-shadow: unset;
 }
+
+.batch-results h2 {
+  display: none;
+}
