@@ -15,21 +15,29 @@ export default class App extends Component {
   constructor() {
     super();
     this.state = {
-      batchSearch: window.location.href.includes("batch") ? true : false,
+      batchSearch: window.location.href.includes("batchwords") ? true : false,
       results: "<h3>Look up a Japanese word using the searchbar.</h3>"
     };
   }
 
   componentDidMount = () => {
     const currentUrl = window.location.href;
+    if (!window.location.href.includes("word")) {
+      window.location.href = "word";
+    }
     if (currentUrl.includes("batchwords/")) {
       let searchTerms = currentUrl.replace(/https?:\/\/[^\/]*\/[a-z]*\//i, "");
       console.log(searchTerms, "URL");
       this.fetchBatchResults(searchTerms, /\?/);
     } else if (currentUrl.includes("word/")) {
       this.fetchResults(currentUrl.replace(/https?:\/\/[^\/]*\/[a-z]*\//i, ""));
+    } else if (this.state.batchSearch === true) {
+      const link = currentUrl + "/辞書?医者?嵐?作る";
+      this.setState({
+        results: `<div><h3>Look up a list of Japanese words using the searchbar.</h3><div>Click this for example results: <a href=${link}>辞書+医者+嵐+作る</a></div></div>`
+      });
     } else {
-      const link = currentUrl + "word/辞書";
+      const link = currentUrl + "/辞書";
       this.setState({
         results: `<div><h3>Look up a Japanese word using the searchbar.</h3><div>Click this for example results: <a href=${link}>辞書</a></div></div>`
       });
