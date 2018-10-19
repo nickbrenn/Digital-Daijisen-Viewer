@@ -32,7 +32,7 @@ server.get("/api/results/:searchTerm", (req, res) => {
       // this one is same as above but it'll select the opening div so you can delete the whole thing
       // /<div class="ex cf">[\n 	]*<h3>([^［<]*?)［漢字項目］([^\r]*?)<!-- \/\.ex 解説 -->/g
 
-      // the digital daijisen also uses things like ［列車］［書名］and ［地名］ so make things for thsoe too later
+      // the digital daijisen also uses things like ［列車］［書名］and ［地名］ so make things for those too later
       // daijirin uses a different format
 
       const daijisenRegex = /デジタル大辞泉<\/a>([^\r]*?)(?=<!-- \/\.dictype 辞書ひとつ -->)/;
@@ -68,15 +68,20 @@ server.get("/api/results/:searchTerm", (req, res) => {
           .replace(replaceSourceRegex, "");
       }
 
-      result = result.replace(removeNonDefinitions, "");
-
-      res.status(200).json({ result: result.replace(/\n/g, "") });
+      if (result === "") {
+        res.json({ error: "<div>Empty result</div>" });
+      } else {
+        result = result.replace(removeNonDefinitions, "");
+        res.status(200).json({ result: result.replace(/\n/g, "") });
+      }
     } else {
       console.log("SERVER ERROR!");
       if (response) {
-        res.json({ error: "ERROR response status: " + response.statusCode });
+        res.json({
+          error: "<div>ERROR response status: " + response.statusCode + "</div>"
+        });
       } else {
-        res.json({ error: "ERROR with no response" });
+        res.json({ error: "<div>ERROR with no response</div>" });
       }
     }
   });

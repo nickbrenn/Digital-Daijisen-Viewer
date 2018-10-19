@@ -25,8 +25,10 @@ export default class App extends Component {
       window.location.href = "word";
     }
     if (currentUrl.includes("batchwords/")) {
-      let searchTerms = currentUrl.replace(/https?:\/\/[^\/]*\/[a-z]*\//i, "");
-      console.log(searchTerms, "URL");
+      const searchTerms = currentUrl.replace(
+        /https?:\/\/[^\/]*\/[a-z]*\//i,
+        ""
+      );
       this.fetchBatchResults(searchTerms, /\?/);
     } else if (currentUrl.includes("word/")) {
       this.fetchResults(currentUrl.replace(/https?:\/\/[^\/]*\/[a-z]*\//i, ""));
@@ -72,10 +74,8 @@ export default class App extends Component {
               this.setState({ results: response.data.error });
             }
           } else if (response.data.error) {
-            console.log("response.data.error exists!");
             this.setState({ results: response.data.error });
           } else {
-            // console.log("results:", response.data.result);
             this.setState(() => ({ results: response.data.result }));
           }
         })
@@ -105,7 +105,6 @@ export default class App extends Component {
         .get(`${baseUrl}/api/results/${searchTerms[i]}`)
         .then(response => {
           if (response.data.error) {
-            console.log("response.data.error exists!");
             results[i] = response.data.error;
           } else {
             results[i] = response.data.result;
@@ -119,7 +118,6 @@ export default class App extends Component {
     }
 
     Promise.all(promises).then(() => {
-      // console.log("Results:", results);
       this.setState({
         results: "<div class='batch-results'>" + results.join("") + "</div>"
       });
