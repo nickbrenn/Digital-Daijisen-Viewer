@@ -4,8 +4,11 @@ import { Button } from "reactstrap";
 const Result = props => {
   const html = props.results;
   const downloadCsv = () => {
-    const words = document.getElementsByTagName("h3");
     const definitions = document.querySelectorAll(".description");
+    if (!(definitions.length > 0)) {
+      return;
+    }
+    const words = document.getElementsByTagName("h3");
     const csvData = new Array(words.length - 1);
     for (let i = 0; i < words.length; i++) {
       let pronunciation = "";
