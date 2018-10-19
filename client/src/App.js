@@ -15,7 +15,6 @@ export default class App extends Component {
   constructor() {
     super();
     this.state = {
-      batchSearch: window.location.href.includes("batchwords") ? true : false,
       results: "<h3>Look up a Japanese word using the searchbar.</h3>"
     };
   }
@@ -31,17 +30,27 @@ export default class App extends Component {
       this.fetchBatchResults(searchTerms, /\?/);
     } else if (currentUrl.includes("word/")) {
       this.fetchResults(currentUrl.replace(/https?:\/\/[^\/]*\/[a-z]*\//i, ""));
-    } else if (this.state.batchSearch === true) {
+    }
+    this.generateExampleQueries();
+  };
+
+  generateExampleQueries = () => {
+    const currentUrl = window.location.href;
+    if (currentUrl === window.location.origin + "/batchwords") {
       const link = currentUrl + "/辞書?医者?嵐?作る";
       this.setState({
         results: `<div><h3>Look up a list of Japanese words using the searchbar.</h3><div>Click this for example results: <a href=${link}>辞書+医者+嵐+作る</a></div></div>`
       });
-    } else {
+    } else if (currentUrl === window.location.origin + "/word") {
       const link = currentUrl + "/辞書";
       this.setState({
         results: `<div><h3>Look up a Japanese word using the searchbar.</h3><div>Click this for example results: <a href=${link}>辞書</a></div></div>`
       });
     }
+  };
+
+  toggleSearch = () => {
+    this.generateExampleQueries();
   };
 
   fetchResults = (searchTerm, alreadyResent) => {
@@ -78,12 +87,13 @@ export default class App extends Component {
     }
   };
 
-  toggleBatchSearch = () => {
-    const current = this.state.batchSearch;
-    this.setState({ batchSearch: !current });
-  };
-
   fetchBatchResults = (searchTerms, delimiter) => {
+    if (!searchTerms) {
+      return;
+    }
+    this.setState({
+      results: "<h3>Loading...</h3>"
+    });
     if (delimiter) {
       searchTerms = searchTerms.split(delimiter);
     } else searchTerms = searchTerms.split(/\n/);
@@ -149,68 +159,53 @@ export default class App extends Component {
   };
 
   render() {
-    if (this.state.batchSearch !== true) {
-      return (
-        <Container className="app">
-          <Row>
-            <Col>
-              <Route
-                path="/"
-                render={props => {
-                  return (
-                    <Search
-                      {...props}
-                      fetchResults={this.fetchResults}
-                      toggleBatchSearch={this.toggleBatchSearch}
-                    />
-                  );
-                }}
-              />
-            </Col>
-          </Row>
-          <Row>
-            <Col>
-              <Route
-                path="/"
-                render={props => {
-                  return <Result {...props} results={this.state.results} />;
-                }}
-              />
-            </Col>
-          </Row>
-        </Container>
-      );
-    } else {
-      return (
-        <Container className="app">
-          <Row>
-            <Col>
-              <Route
-                path="/"
-                render={props => {
-                  return (
-                    <BatchSearch
-                      {...props}
-                      fetchBatchResults={this.fetchBatchResults}
-                      toggleBatchSearch={this.toggleBatchSearch}
-                    />
-                  );
-                }}
-              />
-            </Col>
-          </Row>
-          <Row>
-            <Col>
-              <Route
-                path="/"
-                render={props => {
-                  return <Result {...props} results={this.state.results} />;
-                }}
-              />
-            </Col>
-          </Row>
-        </Container>
-      );
-    }
+    return (
+      <Container className="app">
+        <Route
+          path="/word"
+          render={props => {
+            return (
+              <Row>
+                <Col>
+                  <Search
+                    {...props}
+                    fetchResults={this.fetchResults}
+                    toggleSearch={this.toggleSearch}
+                  />
+                </Col>
+              </Row>
+            );
+          }}
+        />
+        <Route
+          path="/batchwords"
+          render={props => {
+            return (
+              <Row>
+                <Col>
+                  <BatchSearch
+                    {...props}
+                    fetchBatchResults={this.fetchBatchResults}
+                    toggleSearch={this.toggleSearch}
+                  />
+                </Col>
+              </Row>
+            );
+          }}
+        />
+        <Route
+          path="/"
+          render={props => {
+            return (
+              <Row>
+                <Col>
+                  <Result {...props} results={this.state.results} />
+                </Col>
+              </Row>
+            );
+          }}
+        />
+      </Container>
+    );
   }
 }

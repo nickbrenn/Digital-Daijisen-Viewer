@@ -44,8 +44,8 @@ export default class Search extends Component {
           className="secondary-btn"
           onClick={event => {
             event.target.blur();
-            // this.props.history.push("batchwords");
-            this.props.toggleBatchSearch();
+            this.props.history.push("/batchwords");
+            this.props.toggleSearch();
           }}
         >
           Batch Search
