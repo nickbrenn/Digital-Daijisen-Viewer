@@ -5,8 +5,8 @@ const Result = props => {
   const downloadCsv = () => {
     const words = document.getElementsByTagName("h3");
     const definitions = document.querySelectorAll(".description");
-    // const dictionaries = document.getElementsByTagName("h2");
     const csvData = new Array(words.length - 1);
+    console.log(words);
     for (let i = 0; i < words.length; i++) {
       let pronunciation = "";
       let word = "";
@@ -22,14 +22,13 @@ const Result = props => {
       csvData[i] = [
         word,
         pronunciation,
-        definitions[i].innerHTML
-        // dictionaries[i].innerText
+        definitions[i].innerHTML,
+        words[i].parentNode.parentNode.classList[0]
       ];
     }
     const BOM = "\uFEFF";
     const csvString =
-      // "word,pronunciation,definition,dictionary\n" + csvData.join("\n");
-      "word,pronunciation,definition\n" + csvData.join("\n");
+      "word,pronunciation,definition,dictionary\n" + csvData.join("\n");
     const download = document.createElement("a");
     download.href = "data:text/csv;charset=utf-8," + encodeURI(BOM + csvString);
     download.target = "_blank";

@@ -54,7 +54,7 @@ server.get("/api/results/:searchTerm", (req, res) => {
         result += daijisenDefinition[0]
           .replace(
             replaceHeaderRegex,
-            "<article id='daijisen' class='definition'><h2>大辞泉</h2>"
+            "<article class='大辞泉 definition'><h2>大辞泉</h2>"
           )
           .replace(replaceSourceRegex, "");
       }
@@ -63,7 +63,7 @@ server.get("/api/results/:searchTerm", (req, res) => {
         result += daijirinDefinition[0]
           .replace(
             replaceHeaderRegex,
-            "<article id='daijirin' class='definition'><h2>大辞林</h2>"
+            "<article class='大辞林 definition'><h2>大辞林</h2>"
           )
           .replace(replaceSourceRegex, "");
       }
