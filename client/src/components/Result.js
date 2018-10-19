@@ -3,10 +3,9 @@ import React from "react";
 const Result = props => {
   const html = props.results;
   const downloadCsv = () => {
-    // const definitions = document.querySelectorAll(".definition");
-    const dictionaries = document.getElementsByTagName("h2");
     const words = document.getElementsByTagName("h3");
     const definitions = document.querySelectorAll(".description");
+    const dictionaries = document.getElementsByTagName("h2");
     const csvData = new Array(words.length - 1);
     for (let i = 0; i < words.length; i++) {
       let pronunciation = "";
@@ -20,14 +19,21 @@ const Result = props => {
       }
       // Remove kanji demarcations
       pronunciation = pronunciation.replace(/[‐・]/, "");
-      csvData[i] = {
-        word: word,
-        pronunciation: pronunciation,
-        definition: definitions[i].innerHTML,
-        dictionary: dictionaries[i].innerText
-      };
+      csvData[i] = [
+        word,
+        pronunciation,
+        definitions[i].innerHTML,
+        dictionaries[i].innerText
+      ];
     }
-    console.log(csvData);
+    const csvString =
+      "word,pronunciation,definition,dictionary\n" + csvData.join("\n");
+    const download = document.createElement("a");
+    download.href = "data:text/csv;charset=utf-8," + encodeURI(csvString);
+    download.target = "_blank";
+    download.download = "ddv.csv";
+    download.click();
+    console.log(csvString);
   };
   return (
     <div>
