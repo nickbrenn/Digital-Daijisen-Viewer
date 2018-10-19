@@ -15,7 +15,7 @@ export default class App extends Component {
   constructor() {
     super();
     this.state = {
-      results: "<h3>Look up a Japanese word using the searchbar.</h3>"
+      results: "<h3>Loading...</h3>"
     };
   }
 
@@ -41,12 +41,12 @@ export default class App extends Component {
     if (currentUrl === window.location.origin + "/batchwords") {
       const link = currentUrl + "/辞書?医者?嵐?作る";
       this.setState({
-        results: `<div><h3>Look up a list of Japanese words using the searchbar.</h3><div>Click this for example results: <a href=${link}>辞書+医者+嵐+作る</a></div></div>`
+        results: `<h3>Click this for example results: <a href=${link}>辞書+医者+嵐+作る</a></h3>`
       });
     } else if (currentUrl === window.location.origin + "/word") {
       const link = currentUrl + "/辞書";
       this.setState({
-        results: `<div><h3>Look up a Japanese word using the searchbar.</h3><div>Click this for example results: <a href=${link}>辞書</a></div></div>`
+        results: `<h3>Click this for example results: <a href=${link}>辞書</a></h3>`
       });
     }
   };
