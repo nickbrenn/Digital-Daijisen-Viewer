@@ -195,11 +195,11 @@ export default class App extends Component {
         />
         <Route
           path="/"
-          render={props => {
+          render={() => {
             return (
               <Row>
                 <Col>
-                  <Result {...props} results={this.state.results} />
+                  <Result results={this.state.results} />
                 </Col>
               </Row>
             );

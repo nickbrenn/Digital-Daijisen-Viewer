@@ -11,10 +11,14 @@ body {
 .search {
   padding: 2rem 1rem 0;
   display: inline-flex;
-  left: 0;
-  top: 0;
   width: 100%;
   justify-content: center;
+}
+
+@media (max-width: 600px) {
+  .search {
+    flex-wrap: wrap;
+  }
 }
 
 .result {
