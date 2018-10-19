@@ -105,14 +105,14 @@ export default class App extends Component {
         .then(response => {
           if (response.data.error) {
             console.log("response.data.error exists!");
-            results.push("Error");
+            results[i] = "Error";
           } else {
-            results.push(response.data);
+            results[i] = response.data;
           }
         })
         .catch(error => {
           console.error("Server Error!!!: ", error);
-          results.push("Error from .catch");
+          results[i] = "Error from .catch";
         });
       promises.push(promise);
     }
