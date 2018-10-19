@@ -75,7 +75,8 @@ export default class App extends Component {
             console.log("response.data.error exists!");
             this.setState({ results: response.data.error });
           } else {
-            this.setState(() => ({ results: response.data }));
+            // console.log("results:", response.data.result);
+            this.setState(() => ({ results: response.data.result }));
           }
         })
         .catch(error => {
@@ -105,9 +106,9 @@ export default class App extends Component {
         .then(response => {
           if (response.data.error) {
             console.log("response.data.error exists!");
-            results[i] = "Error";
+            results[i] = response.data.error;
           } else {
-            results[i] = response.data;
+            results[i] = response.data.result;
           }
         })
         .catch(error => {

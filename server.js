@@ -70,7 +70,7 @@ server.get("/api/results/:searchTerm", (req, res) => {
 
       result = result.replace(removeNonDefinitions, "");
 
-      res.status(200).send(result.replace(/\n/g, ""));
+      res.status(200).json({ result: result.replace(/\n/g, "") });
     } else {
       console.log("SERVER ERROR!");
       if (response) {
