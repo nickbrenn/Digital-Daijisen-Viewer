@@ -8,8 +8,20 @@ const Result = props => {
     const definitions = document.querySelectorAll(".description");
     const csvData = new Array(words.length - 1);
     for (let i = 0; i < words.length; i++) {
+      let pronunciation = "";
+      let word = "";
+      if (words[i].innerText.includes("【")) {
+        pronunciation = words[i].innerText.match(/([^\r]*?)(?=【)/)[0];
+        word = words[i].innerText.match(/([^【]*?)(?=】)/)[0];
+      } else {
+        pronunciation = words[i].innerText;
+        word = pronunciation;
+      }
+      // Remove kanji demarcations
+      pronunciation = pronunciation.replace(/[‐・]/, "");
       csvData[i] = {
-        word: words[i].innerHTML,
+        word: word,
+        pronunciation: pronunciation,
         definition: definitions[i].innerHTML
       };
     }
