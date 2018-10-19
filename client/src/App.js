@@ -53,7 +53,7 @@ export default class App extends Component {
     this.generateExampleQueries();
   };
 
-  fetchResults = (searchTerm, alreadyResent) => {
+  fetchResults = (searchTerm, alreadyReSent) => {
     if (!searchTerm) {
       return;
     } else {
@@ -63,7 +63,7 @@ export default class App extends Component {
       axios
         .get(`${baseUrl}/api/results/${searchTerm}`)
         .then(response => {
-          if (response.data.error && alreadyResent !== true) {
+          if (response.data.error && alreadyReSent !== true) {
             const okuriganaRemoved = this.removeOkurigana(searchTerm);
             if (okuriganaRemoved !== null) {
               window.location.href = okuriganaRemoved;
