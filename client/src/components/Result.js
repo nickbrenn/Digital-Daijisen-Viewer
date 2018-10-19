@@ -4,6 +4,7 @@ const Result = props => {
   const html = props.results;
   const downloadCsv = () => {
     // const definitions = document.querySelectorAll(".definition");
+    const dictionaries = document.getElementsByTagName("h2");
     const words = document.getElementsByTagName("h3");
     const definitions = document.querySelectorAll(".description");
     const csvData = new Array(words.length - 1);
@@ -22,7 +23,8 @@ const Result = props => {
       csvData[i] = {
         word: word,
         pronunciation: pronunciation,
-        definition: definitions[i].innerHTML
+        definition: definitions[i].innerHTML,
+        dictionary: dictionaries[i].innerText
       };
     }
     console.log(csvData);
