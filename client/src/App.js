@@ -119,7 +119,7 @@ export default class App extends Component {
     }
 
     Promise.all(promises).then(() => {
-      console.log("RESULTS", results);
+      // console.log("Results:", results);
       this.setState({
         results: "<div class='batch-results'>" + results.join("") + "</div>"
       });

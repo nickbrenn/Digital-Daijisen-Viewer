@@ -1,4 +1,5 @@
 import React from "react";
+import { Button } from "reactstrap";
 
 const Result = props => {
   const html = props.results;
@@ -6,7 +7,6 @@ const Result = props => {
     const words = document.getElementsByTagName("h3");
     const definitions = document.querySelectorAll(".description");
     const csvData = new Array(words.length - 1);
-    console.log(words);
     for (let i = 0; i < words.length; i++) {
       let pronunciation = "";
       let word = "";
@@ -37,7 +37,18 @@ const Result = props => {
   };
   return (
     <div>
-      <button onClick={() => downloadCsv()}>Download CSV Definitions</button>
+      <div className="download-button">
+        <Button
+          color="primary"
+          className="secondary-btn"
+          onClick={event => {
+            event.target.blur();
+            downloadCsv();
+          }}
+        >
+          Download CSV Definitions
+        </Button>
+      </div>
       <div className="result" dangerouslySetInnerHTML={{ __html: html }} />
     </div>
   );

@@ -5,9 +5,6 @@ body {
   background-color: #f2f2f2;
 }
 
-.app {
-}
-
 .search {
   padding: 2rem 1rem 0;
   display: inline-flex;
@@ -33,30 +30,30 @@ body {
   padding-bottom: 1rem;
 }
 
-.search button.btn {
+button.btn.btn-primary {
   background-color: orange;
   border-color: orange;
   border-radius: unset;
 }
 
-.search button.btn:hover,
-.search button.btn:active,
-.search button.btn:focus {
+button.btn.btn-primary:hover,
+button.btn.btn-primary:active,
+button.btn.btn-primary:focus {
   background-color: darkorange !important;
   border-color: darkorange !important;
   box-shadow: unset !important;
   -webkit-box-shadow: unset !important;
 }
 
-.search button.btn.secondary-btn {
+button.btn.secondary-btn {
   background-color: lightseagreen;
   border-color: lightseagreen;
   border-radius: unset;
 }
 
-.search button.btn.secondary-btn:hover,
-.search button.btn.secondary-btn:active,
-.search button.btn.secondary-btn:focus {
+button.btn.secondary-btn:hover,
+button.btn.secondary-btn:active,
+button.btn.secondary-btn:focus {
   background-color: darkcyan !important;
   border-color: darkcyan !important;
   box-shadow: unset !important;
@@ -72,6 +69,11 @@ body {
   -webkit-box-shadow: unset;
 }
 
-/* .batch-results h2 {
+.batch-results h2 {
   display: none;
-} */
+}
+
+.download-button {
+  display: flex;
+  justify-content: center;
+}
