@@ -21,10 +21,9 @@ export default class App extends Component {
 
   componentDidMount = () => {
     const currentUrl = window.location.href;
-    if (!window.location.href.includes("word")) {
+    if (!currentUrl.includes("word")) {
       window.location.href = "word";
-    }
-    if (currentUrl.includes("batchwords/")) {
+    } else if (currentUrl.includes("batchwords/")) {
       const searchTerms = currentUrl.replace(
         /https?:\/\/[^\/]*\/[a-z]*\//i,
         ""
@@ -112,7 +111,7 @@ export default class App extends Component {
         })
         .catch(error => {
           console.error("Server Error!!!: ", error);
-          results[i] = "Error from .catch";
+          results[i] = "<div>Error from .catch</div>";
         });
       promises.push(promise);
     }
