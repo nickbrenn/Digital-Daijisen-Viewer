@@ -40,12 +40,12 @@ export default class App extends Component {
     if (currentUrl === window.location.origin + "/batchwords") {
       const link = currentUrl + "/辞書?医者?嵐?作る";
       this.setState({
-        results: `<h3>Click this for example results: <a href=${link}>辞書+医者+嵐+作る</a></h3>`
+        results: `<h5>Click this for example results: <a href=${link}>辞書+医者+嵐+作る</a></h5>`
       });
     } else if (currentUrl === window.location.origin + "/word") {
       const link = currentUrl + "/辞書";
       this.setState({
-        results: `<h3>Click this for example results: <a href=${link}>辞書</a></h3>`
+        results: `<h5>Click this for example results: <a href=${link}>辞書</a></h5>`
       });
     }
   };
