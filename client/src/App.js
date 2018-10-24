@@ -79,7 +79,6 @@ export default class App extends Component {
           }
         })
         .catch(error => {
-          console.error("Server Error!!!: ", error);
           this.setState(() => ({
             results: "<h3>Error from .catch</h3>"
           }));
@@ -110,7 +109,6 @@ export default class App extends Component {
           }
         })
         .catch(error => {
-          console.error("Server Error!!!: ", error);
           results[i] = "<div>Error from .catch</div>";
         });
       promises.push(promise);
